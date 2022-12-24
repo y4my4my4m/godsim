@@ -14,6 +14,7 @@ class Character:
     self.death_timer = 0
     self.sprite = sprite
     self.screen = screen
+    self.rect = pygame.Rect(self.position[0], self.position[1], 4, 4)
 
   def draw(self):
     # Set the color of the character based on whether they are alive or dead

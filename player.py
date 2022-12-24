@@ -61,14 +61,5 @@ class Player:
       # Check if the player is holding wheat
       if self.isHoldingWheat:
         # Create a Wheat object and add it to the sprite group
-        wheat = Wheat(cursor_pos, 5)
+        wheat = Wheat(cursor_pos, 5, self.world)
         self.wheat_group.add(wheat)
-
-          # # Iterate through the family members
-          # for member in self.world.families[0].characters:
-          #     # Check if the member is hungry
-          #     if member.hunger > 0:
-          #         # Feed the member and decrease their hunger
-          #         member.hunger -= 5
-          #         # Decrease the player's wheat by the amount used to feed the member
-          #         self.world.resources['food'] -= 5
