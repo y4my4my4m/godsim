@@ -4,12 +4,23 @@ from character import Character
 THRESHOLD = 50  # The maximum distance at which the characters should move towards each other
 STEP = 5  # The amount by which the characters should move towards each other
 
+prefixes = ["Mc", "O'", "Van", "De"]
+suffixes = ["son", "smith", "son", "berg"]
+first_names = ["John", "Mary", "James", "Elizabeth"]
+last_names = ["Smith", "Johnson", "Williams", "Jones"]
+def generate_family_name():
+  if random.random() < 0.5:
+      return random.choice(prefixes) + random.choice(last_names)
+  else:
+      return random.choice(first_names) + " " + random.choice(suffixes)
 class Family:
+
   def __init__(self, world, region, game_viewport):
     self.world = world
     self.region = region
     self.characters = []
     self.game_viewport = game_viewport
+    self.name = generate_family_name()
     
     # Add at least 2
     for i in range(2):
@@ -19,6 +30,8 @@ class Family:
     # Calculate the average position of the family members
     x_total = 10
     y_total = 10
+    x_avg = 0
+    y_avg = 0
     for character in self.characters:
       x_total += character.position[0]
       y_total += character.position[1]

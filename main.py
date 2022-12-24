@@ -2,9 +2,10 @@ import pygame
 import random
 from variables import BLACK, WHITE, RED, GREEN
 from world import World
-from character import Character
+# from character import Character
 from player import Player
-from family import Family
+# from family import Family
+from region import Region
 
 # Initialize Pygame
 pygame.init()
@@ -25,9 +26,12 @@ game_viewport = pygame.Rect(205, 100, 580, 400)
 family_index_input_field = pygame.draw.rect(screen, WHITE, (200, 180, 50, 30))
 text = font.render("Family index:", True, BLACK)
 screen.blit(text, (205, 185))
-class Region:
-  def __init__(self, name):
-    self.name = name
+
+# Create a list to store the raindrops
+raindrops = []
+
+# Create a list to store the plants
+plants = []
 
 # Create the world
 world = World(game_viewport)
@@ -56,19 +60,20 @@ while running:
       elif feed_family_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to feed: ")
         food = input("Enter the amount of food you want to give: ")
-        player.feed_family(int(world.families[family]), int(food))
+        # player.feed_family(int(world.families[family]), int(food))
+        player.feed_family(world.families[int(family)], int(food))
         break
       # Check if the give water to family button was clicked
       elif give_water_to_family_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to give water to: ")
         water = input("Enter the amount of water you want to give: ")
-        player.give_water_to_family(int(world.families[family]), int(water))
+        player.give_water_to_family(world.families[int(family)], int(water))
         break
       # Check if the inspire faith button was clicked
       elif inspire_faith_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to inspire faith in: ")
         faith = input("Enter the amount of faith you want to give: ")
-        player.inspire_faith(int(world.families[family]), int(faith))
+        player.inspire_faith(world.families[int(family)], int(faith))
         break
   
   # Draw the world
@@ -110,7 +115,7 @@ while running:
   # Draw the families
   y = 10
   for family in world.families:
-    text = font.render(f"Family with {len(family.characters)} characters", True, WHITE)
+    text = font.render(f"{family.name} Family of {len(family.characters)}", True, WHITE)
     screen.blit(text, (window_size[0] - 200, y))
     y += 40
   
