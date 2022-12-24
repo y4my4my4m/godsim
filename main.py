@@ -147,13 +147,22 @@ while running:
   for family in world.families:
     text = font.render(f"{len(family.characters)}: {family.name}", True, WHITE)
     screen.blit(text, (window_size[0] - 150, y))
+
+    # Create rectangles to represent the hunger, thirst, and faith bars
+    hunger_rect = pygame.Rect(window_size[0] - 150, y + 14, (family.hunger_avg * 10)/40, 2)
+    thirst_rect = pygame.Rect(window_size[0] - 150, y + 16, (family.thirst_avg * 10)/40, 2)
+    faith_rect = pygame.Rect(window_size[0] - 150, y + 18, (family.faith_avg * 10)/40, 2)
+    # Draw the rectangles on the screen, positioning them below the family
+    pygame.draw.rect(screen, (255, 0, 0), hunger_rect)
+    pygame.draw.rect(screen, (0, 255, 0), thirst_rect)
+    pygame.draw.rect(screen, (0, 0, 255), faith_rect)
     y += 20
   
   # Update the display
   pygame.display.flip()
   
   # Delay for 1 second
-  pygame.time.delay(20)
+  pygame.time.delay(40)
 
   # Limit the frame rate
   clock.tick(frame_rate)

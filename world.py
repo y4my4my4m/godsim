@@ -3,6 +3,7 @@ import random
 from variables import BLACK, WHITE, RED, GREEN, BLUE
 from fx.plant import Plant
 from fx.raindrop import Raindrop
+from utils.spritesheet import Spritesheet
 
 class World:
   
@@ -14,6 +15,9 @@ class World:
     self.screen = screen
     self.raindrops = []   # Create a list to store the raindrops
     self.plants = []      # Create a list to store the plants
+    # Create the spritesheet
+    self.spritesheet = Spritesheet()
+    self.spritesheet.create_sprites()
 
     # Set the update rate for the plant in frames per second
     self.plant_update_frequency = 6500  # update plant every 60 updates
@@ -45,8 +49,8 @@ class World:
       plant.update()
 
     # Update the raindrops
-    for raindrop in self.raindrops:
-      raindrop.update()
+    # for raindrop in self.raindrops:
+    #   raindrop.update()
 
     # Random events
     if random.random() < 0.01:
@@ -65,8 +69,8 @@ class World:
     for plant in self.plants:
        plant.draw()
 
-    for raindrop in self.raindrops:
-        raindrop.draw(screen)
+    # for raindrop in self.raindrops:
+    #     raindrop.draw(screen)
 
   def add_family(self, family):
     self.families.append(family)

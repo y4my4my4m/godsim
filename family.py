@@ -1,12 +1,7 @@
 import pygame
 import random
 from character import Character
-from utils.spritesheet import Spritesheet
 from variables import WHITE
-
-# Create the spritesheet
-spritesheet = Spritesheet()
-spritesheet.create_sprites()
 
 THRESHOLD = 50  # The maximum distance at which the characters should move towards each other
 STEP = 5  # The amount by which the characters should move towards each other
@@ -15,6 +10,7 @@ prefixes = ["Mc", "O'", "Van", "De", "St.", "Le", "La", "Da", "Di", "Du", "D'", 
 suffixes = ["son", "smith", "son", "berg", "stein", "ville", "mont", "ville", "mar", "bourg", "chevalier", "sable"]
 first_names = ["John", "Mary", "James", "Elizabeth", "Michael", "David", "Robert", "Christopher", "Jessica", "Ashley", "Emily", "Sarah", "Stephanie", "Melissa", "Amanda"]
 last_names = ["Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris"]
+
 def generate_family_name():
   if random.random() < 0.5:
       return random.choice(prefixes) + random.choice(last_names)
@@ -29,10 +25,17 @@ class Family:
     self.screen = screen
     self.game_viewport = game_viewport
     self.name = generate_family_name()
-    
+    # Get the total hunger, thirst, and faith of all characters in the family
+    self.hunger_total = 0
+    self.thirst_total = 0
+    self.faith_total = 0
+    self.hunger_avg = 0
+    self.thirst_avg = 0
+    self.faith_avg = 0
+
     # Add at least 2
-    for i in range(2):
-      self.add_character()
+    self.add_character()
+    self.add_character()
 
   def update(self):
     # Calculate the average position of the family members
@@ -46,6 +49,13 @@ class Family:
       x_avg = x_total / len(self.characters)
       y_avg = y_total / len(self.characters)
     
+    self.hunger_total = sum(character.hunger for character in self.characters)
+    self.thirst_total = sum(character.thirst for character in self.characters)
+    self.faith_total = sum(character.faith for character in self.characters)
+
+    self.hunger_avg = self.hunger_total / len(self.characters)
+    self.thirst_avg = self.thirst_total / len(self.characters)
+    self.faith_avg = self.faith_total / len(self.characters)
     # Add a small random displacement to the average position
     displacement = 10
     x_avg += random.uniform(-displacement, displacement)
@@ -60,10 +70,6 @@ class Family:
             )
         character.update()
 
-    # Add a new character randomly
-    if random.random() < 0.1:
-      self.add_character()
-
   def draw(self):
     for character in self.characters:
       character.draw()
@@ -75,15 +81,14 @@ class Family:
       pygame.draw.line(self.screen, WHITE, character1.position, character2.position)
 
   def add_character(self):
+    if len(self.characters) >= 20:
+      return
     # Check if the family has any characters
     if len(self.characters) == 0:
       # If the family has no characters, just add the new character at a random position
       x_pos = random.uniform(self.game_viewport.x, self.game_viewport.w)
       y_pos = random.uniform(self.game_viewport.y, self.game_viewport.h)
-      # character = Character(self, (x_pos, y_pos))
-      character = Character(self, (x_pos, y_pos), self.screen, spritesheet.sprites[random.randint(0, len(spritesheet.sprites) - 1)])
-      # character = Character(self, (x_pos, y_pos), spritesheet.sprites[2])
-   
+      character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
     else:
       # Calculate the average position of the existing family members
       x_total = 0
@@ -99,5 +104,5 @@ class Family:
       y_pos = y_avg + random.uniform(-50, 50)
 
       # Create the new character with the random position
-      character = Character(self, (x_pos, y_pos), self.screen, spritesheet.sprites[random.randint(0, len(spritesheet.sprites) - 1)])
+      character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
     self.characters.append(character)
