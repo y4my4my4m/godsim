@@ -13,13 +13,13 @@ pygame.init()
 font = pygame.font.Font(None, 20)
 
 # Set the window size and title
-window_size = (800, 400)
+window_size = (800, 600)
 window_title = "God Sim"
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption(window_title)
 
 # Define the game viewport as a rectangle with a width of 600 and a height of 400, starting at an x-coordinate of 100
-game_viewport = pygame.Rect(100, 0, 600, 400)
+game_viewport = pygame.Rect(205, 100, 580, 400)
 
 # Create the input field for the family index
 family_index_input_field = pygame.draw.rect(screen, WHITE, (200, 180, 50, 30))
@@ -38,7 +38,7 @@ world.regions.append(Region("Forest"))
 world.regions.append(Region("Mountains"))
 
 # Create the player
-player = Player(world)
+player = Player(world, game_viewport)
 
 # Main game loop
 running = True
@@ -73,13 +73,15 @@ while running:
   
   # Draw the world
   screen.fill(BLACK)
-  
+
+  # Draw the viewport container
+  pygame.draw.rect(screen, (40,40,40), game_viewport)
+
   # Update the world
   world.update()
   
   # Draw the world
   world.draw(screen)
-  
   # Draw the resources
   text = font.render(f"Food: {world.resources['food']}", True, WHITE)
   screen.blit(text, (10, 10))
@@ -116,7 +118,7 @@ while running:
   pygame.display.flip()
   
   # Delay for 1 second
-  pygame.time.delay(10)
+  pygame.time.delay(20)
 
 # Quit Pygame
 pygame.quit()

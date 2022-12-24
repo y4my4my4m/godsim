@@ -32,7 +32,7 @@ class Character:
       self.die()
     if self.thirst >= 100:
       self.die()
-      
+
   def die(self):
     self.family.characters.remove(self)
     

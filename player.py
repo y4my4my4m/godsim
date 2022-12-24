@@ -2,12 +2,13 @@ import random
 from family import Family
 
 class Player:
-  def __init__(self, world):
+  def __init__(self, world, game_viewport):
     self.world = world
+    self.game_viewport = game_viewport
 
   def create_family(self):
     region = random.choice(self.world.regions)
-    family = Family(self.world, region)
+    family = Family(self.world, region, self.game_viewport)
     self.world.add_family(family)
     
   def feed_family(self, family, food):
@@ -30,7 +31,7 @@ class Player:
 
   def create_family(self):
     region = random.choice(self.world.regions)
-    family = Family(self.world, region)
+    family = Family(self.world, region, self.game_viewport)
     self.world.add_family(family)
     
   def feed_family(self, family, food):
