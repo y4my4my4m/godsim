@@ -54,12 +54,16 @@ class World:
       self.resources["food"] += 10
       print("A bountiful harvest has increased the food supply by 10!")
     if random.random() < 0.01:
+      self.resources["water"] += 10
+      print("A soltice has allowed for rain, water supply increased by 10!")
+    if random.random() < 0.01:
       self.resources["faith"] += 10
       print("A religious event has increased the faith of the people by 10!")
     if random.random() < 0.005:
-      print("A religious event has increased the faith of a family by 100%!")
-      for character in self.families[random.randint(0, len(self.families)-1)].characters:
-        character.faith = 100
+      if len(self.families) != 0:
+        print("A religious event has increased the faith of a family by 100%!")
+        for character in self.families[random.randint(0, len(self.families)-1)].characters:
+          character.faith = 100
 
 
   def draw(self, screen):

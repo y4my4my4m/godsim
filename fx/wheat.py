@@ -28,11 +28,11 @@ class Wheat(pygame.sprite.Sprite):
           for character in family.characters:
             if self.rect.colliderect(character.rect):
               # Check if the member is hungry
-              if character.hunger > 0:
+              if character.hunger >= 0:
                   # Feed the member and decrease their hunger
-                  character.hunger -= 1
+                  character.hunger -= 10
                   # Decrease the player's wheat by the amount used to feed the member
-                  self.world.resources['food'] -= 1
+                  self.world.resources['food'] -= 10
                   self.consume()
 
     def draw(self, screen):

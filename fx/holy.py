@@ -28,11 +28,11 @@ class Holy(pygame.sprite.Sprite):
           for character in family.characters:
             if self.rect.colliderect(character.rect):
               # Check if the member has faith
-              if character.faith > 0:
+              if character.faith < 100:
                   # Feed the member and decrease their faith
-                  character.faith -= 1
+                  character.faith += 10
                   # Decrease the player's holy by the amount used to inspire the member
-                  self.world.resources['faith'] -= 1
+                  self.world.resources['faith'] -= 10
                   self.consume()
 
     def draw(self, screen):

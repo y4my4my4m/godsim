@@ -28,11 +28,11 @@ class Water(pygame.sprite.Sprite):
           for character in family.characters:
             if self.rect.colliderect(character.rect):
               # Check if the member is thirsty
-              if character.thirst > 0:
+              if character.thirst >= 10:
                   # Feed the member and decrease their thirst
-                  character.thirst -= 1
+                  character.thirst -= 10
                   # Decrease the player's water by the amount used to satiate the member
-                  self.world.resources['water'] -= 1
+                  self.world.resources['water'] -= 10
                   self.consume()
 
     def draw(self, screen):
