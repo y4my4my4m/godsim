@@ -53,3 +53,7 @@ class Character:
     
   def worship(self, faith):
     self.faith += faith
+
+  def calculate_bias(faith, hunger, thirst):
+    bias = faith + (100 - hunger) + (100 - thirst)
+    return bias

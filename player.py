@@ -59,7 +59,7 @@ class Player:
 
   def create_weath(self, cursor_pos):
       # Check if the player is holding wheat
-      if self.isHoldingWheat:
+      if self.isHoldingWheat and self.world.resources['food'] > 0:
         # Create a Wheat object and add it to the sprite group
-        wheat = Wheat(cursor_pos, 5, self.world)
+        wheat = Wheat(cursor_pos, 5, self)
         self.wheat_group.add(wheat)
