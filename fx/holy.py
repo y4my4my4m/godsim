@@ -27,16 +27,16 @@ class Holy(pygame.sprite.Sprite):
           # for character in family.characters:
           for character in family.characters:
             if self.rect.colliderect(character.rect):
-              # Check if the member is thirsty
-              if character.thirst > 0:
-                  # Feed the member and decrease their thirst
-                  character.thirst -= 1
-                  # Decrease the player's holy by the amount used to satiate the member
+              # Check if the member has faith
+              if character.faith > 0:
+                  # Feed the member and decrease their faith
+                  character.faith -= 1
+                  # Decrease the player's holy by the amount used to inspire the member
                   self.world.resources['faith'] -= 1
                   self.consume()
 
     def draw(self, screen):
-        # Draw the wheat image on the surface at the current position
+        # Draw the holy image on the surface at the current position
         screen.blit(self.image, self.position)
 
     def consume(self):

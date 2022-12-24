@@ -57,7 +57,7 @@ class Family:
     self.thirst_avg = self.thirst_total / len(self.characters)
     self.faith_avg = self.faith_total / len(self.characters)
     # Add a small random displacement to the average position
-    displacement = 10
+    displacement = 1
     x_avg += random.uniform(-displacement, displacement)
     y_avg += random.uniform(-displacement, displacement)
     # Move each character towards the average position if it is far enough away
@@ -71,11 +71,11 @@ class Family:
         character.update()
 
   def draw(self):
-    for i in range(len(self.characters) - 1):
-      character1 = self.characters[i]
-      character2 = self.characters[i + 1]
-      # Draw the line
-      pygame.draw.line(self.screen, WHITE, character1.position, character2.position)
+    # for i in range(len(self.characters) - 1):
+    #   character1 = self.characters[i]
+    #   character2 = self.characters[i + 1]
+    #   # Draw the line
+    #   pygame.draw.line(self.screen, WHITE, character1.position, character2.position)
 
     for character in self.characters:
       character.draw()
