@@ -11,7 +11,7 @@ from region import Region
 pygame.init()
 
 # Load the font
-font = pygame.font.Font(None, 20)
+font = pygame.font.Font(None, 18)
 
 # Set the window size and title
 window_size = (800, 600)
@@ -113,8 +113,8 @@ while running:
   y = 10
   for family in world.families:
     text = font.render(f"{family.name} Family of {len(family.characters)}", True, WHITE)
-    screen.blit(text, (window_size[0] - 200, y))
-    y += 40
+    screen.blit(text, (window_size[0] - 150, y))
+    y += 20
   
   # Update the display
   pygame.display.flip()

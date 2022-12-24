@@ -1,4 +1,6 @@
 import pygame
+import random
+
 # Define colors
 BLACK = (20, 20, 20)
 WHITE = (200, 200, 200)
