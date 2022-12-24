@@ -3,6 +3,7 @@ import pygame
 from family import Family
 from fx.wheat import Wheat
 from fx.water import Water
+from fx.holy import Holy
 class Player:
   def __init__(self, world, screen, game_viewport):
     self.world = world
@@ -10,6 +11,7 @@ class Player:
     self.game_viewport = game_viewport
     self.isHoldingWheat = False
     self.isHoldingWater = False
+    self.isHoldingHoly = False
     # Create a sprite group for the Wheat objects
     self.wheat_group = pygame.sprite.Group()
     self.water_group = pygame.sprite.Group()
@@ -61,5 +63,5 @@ class Player:
       # Check if the player is holding wheat
       if self.isHoldingHoly and self.world.resources['faith'] > 0:
         # Create a Holy object and add it to the sprite group
-        holy = Water(cursor_pos, 5, self)
+        holy = Holy(cursor_pos, 5, self)
         self.holy_group.add(holy)
