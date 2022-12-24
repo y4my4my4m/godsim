@@ -1,5 +1,5 @@
 import pygame
-import random
+import time
 from variables import BLACK, WHITE, RED, GREEN
 from world import World
 # from character import Character
@@ -41,13 +41,23 @@ world.regions.append(Region("Mountains"))
 # Create the player
 player = Player(world, screen, game_viewport)
 
-
 # Action selection
 holding_wheat = False
+
+# Set the wheat spawn rate (in seconds)
+wheat_spawn_rate = 0.1
+
+# Set the last time the wheat was spawned
+last_wheat_spawn_time = 0
+
+# Set the wheat speed
+wheat_speed = 1
 
 # Main game loop
 running = True
 while running:
+  # Get the cursor position
+  cursor_pos = pygame.mouse.get_pos()
   # Check for events
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -59,13 +69,13 @@ while running:
         break
       # Check if the feed family button was clicked
       elif feed_family_button.collidepoint(event.pos):
-        family = input("Enter the index of the family you want to feed: ")
-        food = input("Enter the amount of food you want to give: ")
-        player.feed_family(world.families[int(family)], int(food))
+        # family = input("Enter the index of the family you want to feed: ")
+        # food = input("Enter the amount of food you want to give: ")
+        # player.feed_family(world.families[int(family)], int(food))
         # Set the cursor to the hand with wheat image
         pygame.mouse.set_cursor(*pygame.cursors.broken_x)
         # Set a flag to indicate that the player is holding wheat
-        holding_wheat = True
+        player.isHoldingWheat = True
         break
       # Check if the give water to family button was clicked
       elif give_water_to_family_button.collidepoint(event.pos):
@@ -81,11 +91,11 @@ while running:
         break
     elif event.type == pygame.MOUSEBUTTONUP:
         # Check if the player was holding wheat
-        if holding_wheat:
+        if player.isHoldingWheat:
             # Reset the cursor to the default image
             pygame.mouse.set_cursor(*pygame.cursors.arrow)
             # Reset the holding wheat flag
-            holding_wheat = False
+            player.isHoldingWheat = False
   # Draw the world
   screen.fill(BLACK)
 
@@ -94,7 +104,17 @@ while running:
 
   # Update the world
   world.update()
-  
+
+  # Check if the mouse button is down and it's time to spawn a new Wheat
+  if player.isHoldingWheat and time.time() - last_wheat_spawn_time >= wheat_spawn_rate:
+      # Create a new Wheat sprite at the mouse position
+      player.create_weath(cursor_pos)
+      # Update the last wheat spawn time
+      last_wheat_spawn_time = time.time()
+
+  for wheat in player.wheat_group:
+    wheat.update()
+    wheat.draw(screen)
   # Draw the world
   world.draw(screen)
   # Draw the resources
@@ -125,7 +145,7 @@ while running:
   # Draw the families
   y = 10
   for family in world.families:
-    text = font.render(f"{family.name} Family of {len(family.characters)}", True, WHITE)
+    text = font.render(f"{len(family.characters)}: {family.name}", True, WHITE)
     screen.blit(text, (window_size[0] - 150, y))
     y += 20
   

@@ -99,6 +99,5 @@ class Family:
       y_pos = y_avg + random.uniform(-50, 50)
 
       # Create the new character with the random position
-      # character = Character(self, (x_pos, y_pos), spritesheet.sprites[4])
       character = Character(self, (x_pos, y_pos), self.screen, spritesheet.sprites[random.randint(0, len(spritesheet.sprites) - 1)])
     self.characters.append(character)

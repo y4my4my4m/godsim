@@ -45,14 +45,14 @@ class World:
       plant.update()
 
     # Update the raindrops
-    # for raindrop in self.raindrops:
-    #   raindrop.update()
+    for raindrop in self.raindrops:
+      raindrop.update()
 
     # Random events
-    if random.random() < 0.1:
+    if random.random() < 0.01:
       self.resources["food"] += 10
       print("A bountiful harvest has increased the food supply by 10!")
-    if random.random() < 0.1:
+    if random.random() < 0.01:
       self.resources["faith"] += 10
       print("A religious event has increased the faith of the people by 10!")
 
@@ -65,8 +65,8 @@ class World:
     for plant in self.plants:
        plant.draw()
 
-    # for raindrop in self.raindrops:
-    #     raindrop.draw(screen)
+    for raindrop in self.raindrops:
+        raindrop.draw(screen)
 
   def add_family(self, family):
     self.families.append(family)
