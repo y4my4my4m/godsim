@@ -8,7 +8,7 @@ class Character:
     self.family.characters.append(self)
     self.hunger = 0
     self.thirst = 0
-    self.faith = 50
+    self.faith = 0
     self.age = 0
     self.position = position
     self.alive = True
@@ -26,11 +26,11 @@ class Character:
       pygame.draw.circle(self.screen, RED, self.position, 4)
 
   def update(self):
-    self.hunger += 1
-    self.thirst += 1
-    self.age += 1
-    self.faith -= 1
-    
+    self.hunger += 0.1
+    self.thirst += 0.1
+    self.age += 0.1
+    self.faith -= 0.1
+  
     if self.hunger >= 100:
       self.die()
     if self.thirst >= 100:
@@ -40,7 +40,7 @@ class Character:
     # bias = self.calculate_bias(self.faith, self.hunger, self.thirst)
 
     # Add a new character randomly
-    if random.random() < 0.01:
+    if random.random() < 0.001:
       self.family.add_character()
 
   def die(self):
@@ -58,7 +58,7 @@ class Character:
     
   def eat(self, food):
     self.hunger -= food
-    
+
   def drink(self, water):
     self.thirst -= water
     

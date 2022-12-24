@@ -71,14 +71,14 @@ class Family:
         character.update()
 
   def draw(self):
-    for character in self.characters:
-      character.draw()
     for i in range(len(self.characters) - 1):
       character1 = self.characters[i]
       character2 = self.characters[i + 1]
-      
       # Draw the line
       pygame.draw.line(self.screen, WHITE, character1.position, character2.position)
+
+    for character in self.characters:
+      character.draw()
 
   def add_character(self):
     if len(self.characters) >= 20:

@@ -187,14 +187,14 @@ while running:
     screen.blit(text, (window_size[0] - 150, y))
 
     # Create rectangles to represent the hunger, thirst, and faith bars
-    hunger_rect = pygame.Rect(window_size[0] - 150, y + 14, (family.hunger_avg * 10)/40, 2)
-    thirst_rect = pygame.Rect(window_size[0] - 150, y + 16, (family.thirst_avg * 10)/40, 2)
-    faith_rect = pygame.Rect(window_size[0] - 150, y + 18, (family.faith_avg * 10)/40, 2)
+    hunger_rect = pygame.Rect(window_size[0] - 150, y + 14, (family.hunger_avg * 10)/10, 2)
+    thirst_rect = pygame.Rect(window_size[0] - 150, y + 18, (family.thirst_avg * 10)/10, 2)
+    faith_rect = pygame.Rect(window_size[0] - 150, y + 22, (family.faith_avg * 10)/10, 2)
     # Draw the rectangles on the screen, positioning them below the family
-    pygame.draw.rect(screen, (255, 0, 0), hunger_rect)
-    pygame.draw.rect(screen, (0, 255, 0), thirst_rect)
-    pygame.draw.rect(screen, (0, 0, 255), faith_rect)
-    y += 20
+    pygame.draw.rect(screen, (200, 20, 50), hunger_rect)
+    pygame.draw.rect(screen, (20, 200, 50), thirst_rect)
+    pygame.draw.rect(screen, (50, 20, 200), faith_rect)
+    y += 25
   
   # Update the display
   pygame.display.flip()
