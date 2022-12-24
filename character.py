@@ -11,6 +11,7 @@ class Character:
     self.faith = 0
     self.position = position
     self.alive = True
+    self.death_timer = 0
 
   def draw(self, screen, game_viewport):
     # Set the color of the character based on whether they are alive or dead
@@ -34,7 +35,15 @@ class Character:
       self.die()
 
   def die(self):
-    self.family.characters.remove(self)
+    self.alive = False
+    # Update the death timer
+    self.death_timer += 1
+    # If the death timer has reached a certain threshold, remove the character from the family
+    if self.death_timer >= 60:  # 60 is the threshold in this example
+      try:
+          self.family.characters.remove(self)
+      except ValueError:
+          pass  # Character has already been removed from the list
     
   def eat(self, food):
     self.hunger -= food

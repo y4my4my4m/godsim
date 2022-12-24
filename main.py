@@ -56,19 +56,19 @@ while running:
       elif feed_family_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to feed: ")
         food = input("Enter the amount of food you want to give: ")
-        player.feed_family(world.families[family], food)
+        player.feed_family(int(world.families[family]), int(food))
         break
       # Check if the give water to family button was clicked
       elif give_water_to_family_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to give water to: ")
         water = input("Enter the amount of water you want to give: ")
-        player.give_water_to_family(world.families[family], water)
+        player.give_water_to_family(int(world.families[family]), int(water))
         break
       # Check if the inspire faith button was clicked
       elif inspire_faith_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to inspire faith in: ")
         faith = input("Enter the amount of faith you want to give: ")
-        player.inspire_faith(world.families[family], faith)
+        player.inspire_faith(int(world.families[family]), int(faith))
         break
   
   # Draw the world
