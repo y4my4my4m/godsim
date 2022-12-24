@@ -1,10 +1,7 @@
-import pygame
 import random
-from variables import BLACK, WHITE, RED, GREEN, BLUE
 from fx.plant import Plant
 from fx.raindrop import Raindrop
 from utils.spritesheet import Spritesheet
-
 class World:
   
   def __init__(self, game_viewport, screen):
@@ -80,3 +77,4 @@ class World:
 
   def add_raindrop(self, raindrop):
     self.raindrops.append(raindrop)
+    

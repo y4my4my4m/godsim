@@ -43,15 +43,23 @@ player = Player(world, screen, game_viewport)
 
 # Action selection
 holding_wheat = False
+holding_water = False
+holding_holy = False
 
 # Set the wheat spawn rate (in seconds)
 wheat_spawn_rate = 0.1
+water_spawn_rate = 0.1
+holy_spawn_rate = 0.1
 
 # Set the last time the wheat was spawned
 last_wheat_spawn_time = 0
+last_water_spawn_time = 0
+last_holy_spawn_time = 0
 
 # Set the wheat speed
 wheat_speed = 1
+water_speed = 1
+holy_speed = 1
 
 # Main game loop
 running = True
@@ -69,9 +77,6 @@ while running:
         break
       # Check if the feed family button was clicked
       elif feed_family_button.collidepoint(event.pos):
-        # family = input("Enter the index of the family you want to feed: ")
-        # food = input("Enter the amount of food you want to give: ")
-        # player.feed_family(world.families[int(family)], int(food))
         # Set the cursor to the hand with wheat image
         pygame.mouse.set_cursor(*pygame.cursors.broken_x)
         # Set a flag to indicate that the player is holding wheat
@@ -79,15 +84,13 @@ while running:
         break
       # Check if the give water to family button was clicked
       elif give_water_to_family_button.collidepoint(event.pos):
-        family = input("Enter the index of the family you want to give water to: ")
-        water = input("Enter the amount of water you want to give: ")
-        player.give_water_to_family(world.families[int(family)], int(water))
+        pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+        player.isHoldingWater = True
         break
       # Check if the inspire faith button was clicked
       elif inspire_faith_button.collidepoint(event.pos):
-        family = input("Enter the index of the family you want to inspire faith in: ")
-        faith = input("Enter the amount of faith you want to give: ")
-        player.inspire_faith(world.families[int(family)], int(faith))
+        pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+        player.isHoldingHoly = True
         break
     elif event.type == pygame.MOUSEBUTTONUP:
         # Check if the player was holding wheat
@@ -96,6 +99,18 @@ while running:
             pygame.mouse.set_cursor(*pygame.cursors.arrow)
             # Reset the holding wheat flag
             player.isHoldingWheat = False
+        # Check if the player was holding water
+        if player.isHoldingWater:
+            # Reset the cursor to the default image
+            pygame.mouse.set_cursor(*pygame.cursors.arrow)
+            # Reset the holding water flag
+            player.isHoldingWater = False
+        # Check if the player was holding holy
+        if player.isHoldingHoly:
+            # Reset the cursor to the default image
+            pygame.mouse.set_cursor(*pygame.cursors.arrow)
+            # Reset the holding holy flag
+            player.isHoldingHoly = False
   # Draw the world
   screen.fill(BLACK)
 
@@ -115,6 +130,29 @@ while running:
   for wheat in player.wheat_group:
     wheat.update()
     wheat.draw(screen)
+
+  # Check if the mouse button is down and it's time to spawn a new Water
+  if player.isHoldingWater and time.time() - last_water_spawn_time >= water_spawn_rate:
+      # Create a new water sprite at the mouse position
+      player.create_water(cursor_pos)
+      # Update the last water spawn time
+      last_water_spawn_time = time.time()
+
+  for water in player.water_group:
+    water.update()
+    water.draw(screen)
+
+  # Check if the mouse button is down and it's time to spawn a new Holy
+  if player.isHoldingHoly and time.time() - last_holy_spawn_time >= holy_spawn_rate:
+      # Create a new holy sprite at the mouse position
+      player.create_holy(cursor_pos)
+      # Update the last holy spawn time
+      last_holy_spawn_time = time.time()
+
+  for holy in player.holy_group:
+    holy.update()
+    holy.draw(screen)
+
   # Draw the world
   world.draw(screen)
   # Draw the resources
@@ -162,7 +200,7 @@ while running:
   pygame.display.flip()
   
   # Delay for 1 second
-  pygame.time.delay(40)
+  # pygame.time.delay(20)
 
   # Limit the frame rate
   clock.tick(frame_rate)
