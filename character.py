@@ -2,7 +2,7 @@ import pygame
 from variables import GREEN, RED
 
 class Character:
-  def __init__(self, family, position, sprite):
+  def __init__(self, family, position, screen, sprite):
     self.family = family
     self.family.characters.append(self)
     self.hunger = 0
@@ -13,17 +13,14 @@ class Character:
     self.alive = True
     self.death_timer = 0
     self.sprite = sprite
+    self.screen = screen
 
-  def draw(self, screen, game_viewport):
+  def draw(self):
     # Set the color of the character based on whether they are alive or dead
     if self.alive:
-      color = GREEN
+      self.screen.blit(self.sprite, self.position)
     else:
-      color = RED
-
-    # Draw the character
-    # pygame.draw.circle(screen, color, self.position, 5)
-    screen.blit(self.sprite, self.position)
+      pygame.draw.circle(self.screen, RED, self.position, 4)
 
   def update(self):
     self.hunger += 1

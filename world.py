@@ -60,15 +60,10 @@ class World:
   def draw(self, screen):
     # Draw the characters
     for family in self.families:
-      for character in family.characters:
-        character.draw(screen, self.game_viewport)
-      for i in range(len(family.characters) - 1):
-        character1 = family.characters[i]
-        character2 = family.characters[i + 1]
-        pygame.draw.line(screen, WHITE, character1.position, character2.position)
+      family.draw()
 
     for plant in self.plants:
-        plant.draw()
+       plant.draw()
 
     # for raindrop in self.raindrops:
     #     raindrop.draw(screen)
@@ -77,7 +72,7 @@ class World:
     self.families.append(family)
 
   def add_plant(self, plant):
-      self.plants.append(plant)
+    self.plants.append(plant)
 
   def add_raindrop(self, raindrop):
-      self.raindrops.append(raindrop)
+    self.raindrops.append(raindrop)

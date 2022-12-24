@@ -6,7 +6,6 @@ from world import World
 from player import Player
 # from family import Family
 from region import Region
-from utils.spritesheet import Spritesheet
 
 # Initialize Pygame
 pygame.init()
@@ -40,10 +39,8 @@ world.regions.append(Region("Forest"))
 world.regions.append(Region("Mountains"))
 
 # Create the player
-player = Player(world, game_viewport)
+player = Player(world, screen, game_viewport)
 
-# Create the spritesheet
-spritesheet = Spritesheet()
 
 # Action selection
 holding_wheat = False
