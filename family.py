@@ -1,5 +1,10 @@
 import random
 from character import Character
+from utils.spritesheet import Spritesheet
+
+# Create the spritesheet
+spritesheet = Spritesheet()
+spritesheet.create_sprites()
 
 THRESHOLD = 50  # The maximum distance at which the characters should move towards each other
 STEP = 5  # The amount by which the characters should move towards each other
@@ -62,7 +67,10 @@ class Family:
       # If the family has no characters, just add the new character at a random position
       x_pos = random.uniform(self.game_viewport.x, self.game_viewport.w)
       y_pos = random.uniform(self.game_viewport.y, self.game_viewport.h)
-      character = Character(self, (x_pos, y_pos))
+      # character = Character(self, (x_pos, y_pos))
+      character = Character(self, (x_pos, y_pos), spritesheet.sprites[random.randint(0, len(spritesheet.sprites) - 1)])
+      # character = Character(self, (x_pos, y_pos), spritesheet.sprites[2])
+   
     else:
       # Calculate the average position of the existing family members
       x_total = 0
@@ -78,5 +86,6 @@ class Family:
       y_pos = y_avg + random.uniform(-50, 50)
 
       # Create the new character with the random position
-      character = Character(self, (x_pos, y_pos))
+      # character = Character(self, (x_pos, y_pos), spritesheet.sprites[4])
+      character = Character(self, (x_pos, y_pos), spritesheet.sprites[random.randint(0, len(spritesheet.sprites) - 1)])
     self.characters.append(character)

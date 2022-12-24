@@ -6,6 +6,7 @@ from world import World
 from player import Player
 # from family import Family
 from region import Region
+from utils.spritesheet import Spritesheet
 
 # Initialize Pygame
 pygame.init()
@@ -41,6 +42,12 @@ world.regions.append(Region("Mountains"))
 # Create the player
 player = Player(world, game_viewport)
 
+# Create the spritesheet
+spritesheet = Spritesheet()
+
+# Action selection
+holding_wheat = False
+
 # Main game loop
 running = True
 while running:
@@ -57,8 +64,11 @@ while running:
       elif feed_family_button.collidepoint(event.pos):
         family = input("Enter the index of the family you want to feed: ")
         food = input("Enter the amount of food you want to give: ")
-        # player.feed_family(int(world.families[family]), int(food))
         player.feed_family(world.families[int(family)], int(food))
+        # Set the cursor to the hand with wheat image
+        pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+        # Set a flag to indicate that the player is holding wheat
+        holding_wheat = True
         break
       # Check if the give water to family button was clicked
       elif give_water_to_family_button.collidepoint(event.pos):
@@ -72,7 +82,13 @@ while running:
         faith = input("Enter the amount of faith you want to give: ")
         player.inspire_faith(world.families[int(family)], int(faith))
         break
-  
+    elif event.type == pygame.MOUSEBUTTONUP:
+        # Check if the player was holding wheat
+        if holding_wheat:
+            # Reset the cursor to the default image
+            pygame.mouse.set_cursor(*pygame.cursors.arrow)
+            # Reset the holding wheat flag
+            holding_wheat = False
   # Draw the world
   screen.fill(BLACK)
 
