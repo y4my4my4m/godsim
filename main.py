@@ -18,6 +18,9 @@ window_size = (800, 600)
 window_title = "God Sim"
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption(window_title)
+# Set the frame rate
+clock = pygame.time.Clock()
+frame_rate = 60
 
 # Define the game viewport as a rectangle with a width of 600 and a height of 400, starting at an x-coordinate of 100
 game_viewport = pygame.Rect(205, 100, 580, 400)
@@ -27,14 +30,8 @@ family_index_input_field = pygame.draw.rect(screen, WHITE, (200, 180, 50, 30))
 text = font.render("Family index:", True, BLACK)
 screen.blit(text, (205, 185))
 
-# Create a list to store the raindrops
-raindrops = []
-
-# Create a list to store the plants
-plants = []
-
 # Create the world
-world = World(game_viewport)
+world = World(game_viewport, screen)
 
 # Add some regions
 world.regions.append(Region("Desert"))
@@ -124,6 +121,10 @@ while running:
   
   # Delay for 1 second
   pygame.time.delay(20)
+
+  # Limit the frame rate
+  clock.tick(frame_rate)
+
 
 # Quit Pygame
 pygame.quit()
