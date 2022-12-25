@@ -1,9 +1,9 @@
 import pygame
 import random
 from variables import GREEN, RED
-
+from utils.singlesprites import SingleSprite
 class Character:
-  def __init__(self, family, position, screen, world, sprite):
+  def __init__(self, family, position, screen, world):
     self.family = family
     self.family.characters.append(self)
     self.hunger = 0
@@ -13,15 +13,51 @@ class Character:
     self.position = position
     self.alive = True
     self.death_timer = 0
-    self.sprite = sprite
     self.screen = screen
     self.rect = pygame.Rect(self.position[0], self.position[1], 4, 4)
     self.world = world
+    self.path = "sprites/characters/"
+    # Create the idle sprites using the SingleSprite class
+    single_sprite = SingleSprite()
+    self.idle_frames = single_sprite.idle_frames
+    self.walk_frames = single_sprite.walk_frames
+    self.frame_rate = 10
+    self.timer = 0
+    self.current_frame = 0
+    self.state = "idle"
+    self.animation_frames = self.idle_frames
+
+  def get_state(self):
+    # Check the character's state and choose the appropriate animation frames
+    if self.state == "idle":
+        self.animation_frames = self.idle_frames
+    elif self.state == "walking":
+        self.animation_frames = self.walk_frames
+
+
+  def animate(self):
+    # Increment the timer
+    self.timer += 1
+    # Check if it's time to switch frames
+    if len(self.idle_frames) > 0:
+      if self.timer % (self.frame_rate // len(self.idle_frames)) == 0:
+          # Reset the timer
+          self.timer = 0
+          # Increment the current frame index
+          self.current_frame += 1
+          if self.current_frame >= len(self.idle_frames):
+              self.current_frame = 0
+    else:
+      self.frame_rate = 10
+
 
   def draw(self):
     # Set the color of the character based on whether they are alive or dead
     if self.alive:
-      self.screen.blit(self.sprite, self.position)
+      self.animate()
+      if self.idle_frames:
+        self.screen.blit(self.animation_frames[self.current_frame], self.position)
+      # self.screen.blit(self.sprite, self.position)
     else:
       pygame.draw.circle(self.screen, RED, self.position, 4)
 

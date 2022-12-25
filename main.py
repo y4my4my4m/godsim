@@ -198,8 +198,7 @@ while running:
   
   # Update the display
   pygame.display.flip()
-  
-  # Delay for 1 second
+
   # pygame.time.delay(20)
 
   # Limit the frame rate

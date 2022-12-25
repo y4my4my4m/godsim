@@ -88,7 +88,8 @@ class Family:
       # If the family has no characters, just add the new character at a random position
       x_pos = random.uniform(self.game_viewport.x, self.game_viewport.w)
       y_pos = random.uniform(self.game_viewport.y, self.game_viewport.h)
-      character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
+      # character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
+      character = Character(self, (x_pos, y_pos), self.screen, self.world)
     else:
       # Calculate the average position of the existing family members
       x_total = 0
@@ -105,5 +106,5 @@ class Family:
 
       # Create the new character with the random position
       # character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
-      character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
+      character = Character(self, (x_pos, y_pos), self.screen, self.world)
     self.characters.append(character)

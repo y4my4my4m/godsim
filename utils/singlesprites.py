@@ -1,23 +1,30 @@
-import pygame
-import os
 from PIL import Image
+import glob
+import os
+import random
+import pygame
+
+# Set the root directory for the sprites
+root_dir = "sprites/characters"
+
+# Get a list of all the subdirectories (i.e., character directories)
+character_dirs = [os.path.join(root_dir, d) for d in os.listdir(root_dir) if os.path.isdir(os.path.join(root_dir, d))]
+
 class SingleSprite:
   def __init__(self):
     self.x = 0
     self.y = 0
-    self.sprites = []
-    self.path = "sprites/characters/"
+    # Load all the idle frames for the selected character
+    self.idle_frames = []
+    self.walk_frames = []
 
-  def create_sprites(self):
-    for file in os.listdir(self.path):
-      if file.endswith(".png"):
-        # sprite = Image.open(os.path.join(self.path, file))
-        sprite = pygame.image.load(self.path+file)
-        # self.sprites.append(sprite_sheet)
-            
-        sprite_rect = pygame.Rect(0,0,32,32)
-        # print(sprite_rect)
-        sprite = sprite.subsurface(sprite_rect)
-        sprite = pygame.transform.scale(sprite, (32, 32))
-        # Add the sprite
-        self.sprites.append(sprite)
+    # Select a random character directory
+    self.character_dir = random.choice(character_dirs)
+
+    # print(glob.glob(os.path.join(self.character_dir, "*Idle_*.png")))
+    for filepath in glob.glob(os.path.join(self.character_dir, "*Idle_*.png")):
+        frame = pygame.image.load(filepath)
+        self.idle_frames.append(frame)
+    for filepath in glob.glob(os.path.join(self.character_dir, "*Walk_*.png")):
+        frame = pygame.image.load(filepath)
+        self.walk_frames.append(frame)
