@@ -13,23 +13,20 @@ class Spritesheet:
         # Read the contents of the file using the csv reader
         reader = csv.reader(f, delimiter=",")
         # Iterate through the list of lines
-        for row in reader:
-            # Split the line into a list of coordinates
-            y, x, w, h = map(int, row[1:])
-            print(x,y,w,h)
-            sprite_rect = pygame.Rect(x,y,4,4)
-            print(sprite_rect)
-            if y > 100:
-              continue
-            elif x > 100:
-              continue
-            else:
-              sprite = self.spritesheet.subsurface(sprite_rect)
+        for i, row in enumerate(reader):
+          if i >= 4:
+            return
+          # Split the line into a list of coordinates
+          y, x, w, h = map(int, row[1:])
+          print(x,y,w,h)
+          sprite_rect = pygame.Rect(x,y,4,4)
+          # print(sprite_rect)
+          sprite = self.spritesheet.subsurface(sprite_rect)
 
-              # sprite = self.spritesheet.subsurface(pygame.Rect(x,y,w,h))
-              # Extract the sprite from the spritesheet using the coordinates
-              # sprite = self.spritesheet.subsurface(pygame.Rect(x, y, w - x, h - y))
-              # Scale down the sprite to 4x4 pixels
-              sprite = pygame.transform.scale(sprite, (16, 16))
-              # Add the sprite
-              self.sprites.append(sprite)
+          # sprite = self.spritesheet.subsurface(pygame.Rect(x,y,w,h))
+          # Extract the sprite from the spritesheet using the coordinates
+          # sprite = self.spritesheet.subsurface(pygame.Rect(x, y, w - x, h - y))
+          # Scale down the sprite to 4x4 pixels
+          sprite = pygame.transform.scale(sprite, (32, 32))
+          # Add the sprite
+          self.sprites.append(sprite)

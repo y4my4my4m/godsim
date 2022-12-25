@@ -104,5 +104,6 @@ class Family:
       y_pos = y_avg + random.uniform(-50, 50)
 
       # Create the new character with the random position
+      # character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
       character = Character(self, (x_pos, y_pos), self.screen, self.world, self.world.spritesheet.sprites[random.randint(0, len(self.world.spritesheet.sprites) - 1)])
     self.characters.append(character)

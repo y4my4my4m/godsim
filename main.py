@@ -159,14 +159,14 @@ while running:
   text = font.render(f"Food: {world.resources['food']}", True, FOOD_COLOR)
   screen.blit(text, (10, 10))
   text = font.render(f"Water: {world.resources['water']}", True, WATER_COLOR)
-  screen.blit(text, (10, 50))
+  screen.blit(text, (10, 30))
   text = font.render(f"Faith: {world.resources['faith']}", True, FAITH_COLOR)
-  screen.blit(text, (10, 90))
+  screen.blit(text, (10, 50))
 
   # Draw the buttons
-  create_family_button = pygame.draw.rect(screen, WHITE, (10, 130, 180, 40))
+  create_family_button = pygame.draw.rect(screen, WHITE, (10, 100, 180, 40))
   text = font.render("Create a new family", True, BLACK)
-  screen.blit(text, (15, 135))
+  screen.blit(text, (15, 105))
   
   feed_family_button = pygame.draw.rect(screen, WHITE, (10, 180, 180, 40))
   text = font.render("Feed a family", True, BLACK)

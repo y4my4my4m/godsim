@@ -2,6 +2,7 @@ import random
 from fx.plant import Plant
 from fx.raindrop import Raindrop
 from utils.spritesheet import Spritesheet
+from utils.singlesprites import SingleSprite
 class World:
   
   def __init__(self, game_viewport, screen):
@@ -13,7 +14,8 @@ class World:
     self.raindrops = []   # Create a list to store the raindrops
     self.plants = []      # Create a list to store the plants
     # Create the spritesheet
-    self.spritesheet = Spritesheet()
+    # self.spritesheet = Spritesheet()
+    self.spritesheet = SingleSprite()
     self.spritesheet.create_sprites()
 
     # Set the update rate for the plant in frames per second
