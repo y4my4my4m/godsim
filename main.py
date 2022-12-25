@@ -1,6 +1,6 @@
 import pygame
 import time
-from variables import BLACK, WHITE, RED, GREEN
+from variables import BLACK, WHITE, FOOD_COLOR, WATER_COLOR, FAITH_COLOR
 from world import World
 # from character import Character
 from player import Player
@@ -156,11 +156,11 @@ while running:
   # Draw the world
   world.draw(screen)
   # Draw the resources
-  text = font.render(f"Food: {world.resources['food']}", True, WHITE)
+  text = font.render(f"Food: {world.resources['food']}", True, FOOD_COLOR)
   screen.blit(text, (10, 10))
-  text = font.render(f"Water: {world.resources['water']}", True, WHITE)
+  text = font.render(f"Water: {world.resources['water']}", True, WATER_COLOR)
   screen.blit(text, (10, 50))
-  text = font.render(f"Faith: {world.resources['faith']}", True, WHITE)
+  text = font.render(f"Faith: {world.resources['faith']}", True, FAITH_COLOR)
   screen.blit(text, (10, 90))
 
   # Draw the buttons
@@ -191,9 +191,9 @@ while running:
     thirst_rect = pygame.Rect(window_size[0] - 150, y + 18, (family.thirst_avg * 10)/10, 2)
     faith_rect = pygame.Rect(window_size[0] - 150, y + 22, (family.faith_avg * 10)/10, 2)
     # Draw the rectangles on the screen, positioning them below the family
-    pygame.draw.rect(screen, (200, 20, 50), hunger_rect)
-    pygame.draw.rect(screen, (20, 200, 50), thirst_rect)
-    pygame.draw.rect(screen, (50, 20, 200), faith_rect)
+    pygame.draw.rect(screen, FOOD_COLOR, hunger_rect)
+    pygame.draw.rect(screen, WATER_COLOR, thirst_rect)
+    pygame.draw.rect(screen, FAITH_COLOR, faith_rect)
     y += 25
   
   # Update the display
