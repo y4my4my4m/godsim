@@ -4,7 +4,7 @@ from PIL import Image
 import os
 import numpy as np
 
-num_epochs = 10
+num_epochs = 4
 # Define the neural network architecture
 class SpriteGenerator(nn.Module):
   def __init__(self):
@@ -22,7 +22,6 @@ class SpriteGenerator(nn.Module):
     x = x.clamp(0, 1)
     # Reshape the input to have the correct shape and number of channels
     x = x.view(-1, 4, 32, 32)
-    # x = x.view(-1, 3, 32, 32)[:, :, :, :3]
     x = self.conv1(x)
     x = nn.ReLU()(x)
     x = self.conv2(x)
@@ -51,6 +50,8 @@ def load_sprite_sheets(sprite_sheet_dir):
   for file in os.listdir(sprite_sheet_dir):
     if file.endswith(".png"):
       sprite_sheet = Image.open(os.path.join(sprite_sheet_dir, file))
+      # Convert the sprite to a NumPy array
+    #   sprite_sheet = np.array(sprite_sheet)
       sprite_sheets.append(sprite_sheet)
       
   return sprite_sheets
@@ -58,7 +59,7 @@ def load_sprite_sheets(sprite_sheet_dir):
 def split_sprite_sheets(sprite_sheets):
   # Set the size and resolution of the individual sprites
   sprite_size = (32, 32)
-  sprite_res = (3, 3)
+  sprite_res = (4, 4)
   
   # Initialize a list to store the individual sprites
   sprites = []
@@ -96,8 +97,7 @@ def resize_sprites(sprites, size, res):
     # Convert the sprite to the RGBA mode
     sprite = sprite.convert("RGBA")
     # Resize the sprite
-    sprite = sprite.resize(sprite_size, resample=Image.NEAREST)
-    
+    sprite = sprite.resize(sprite_size, resample=Image.Resampling.NEAREST)
     # Convert the sprite to a NumPy array
     sprite = np.array(sprite)
     # Add the resized sprite to the list
@@ -184,6 +184,10 @@ for epoch in range(num_epochs):
     # Forward pass
     y_pred = model(X)
     loss = criterion(y_pred, y)
+    
+    # Print progress
+    if i % 100 == 0:
+      print(f"Epoch {epoch+1}/{num_epochs}, Step {i+1}/{len(X_train)}, Loss = {loss.item():.4f}")
 
     # Save the generated sprites to image files
     for i, sprite in enumerate(y_pred):
@@ -205,10 +209,6 @@ for epoch in range(num_epochs):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
-    
-    # Print progress
-    if i % 100 == 0:
-      print(f"Epoch {epoch+1}/{num_epochs}, Step {i+1}/{len(X_train)}, Loss = {loss.item():.4f}")
 
 # Test the model on some new, unseen sprites
 X_test, y_test = load_test_data()
