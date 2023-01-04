@@ -3,8 +3,8 @@ import random
 from character import Character
 from variables import WHITE
 
-THRESHOLD = 50  # The maximum distance at which the characters should move towards each other
-STEP = 5  # The amount by which the characters should move towards each other
+THRESHOLD = 150  # The maximum distance at which the characters should move towards each other
+STEP = 1  # The amount by which the characters should move towards each other
 
 prefixes = ["Mc", "O'", "Van", "De", "St.", "Le", "La", "Da", "Di", "Du", "D'", "Fitz"]
 suffixes = ["son", "smith", "son", "berg", "stein", "ville", "mont", "ville", "mar", "bourg", "chevalier", "sable"]
@@ -35,7 +35,6 @@ class Family:
 
     # Add at least 2
     self.add_character()
-    self.add_character()
 
   def update(self):
     # Calculate the average position of the family members
@@ -57,17 +56,17 @@ class Family:
     self.thirst_avg = self.thirst_total / len(self.characters)
     self.faith_avg = self.faith_total / len(self.characters)
     # Add a small random displacement to the average position
-    displacement = 1
+    displacement = 10
     x_avg += random.uniform(-displacement, displacement)
     y_avg += random.uniform(-displacement, displacement)
     # Move each character towards the average position if it is far enough away
     for character in self.characters:
         distance = ((character.position[0] - x_avg) ** 2 + (character.position[1] - y_avg) ** 2) ** 0.5
         if distance > THRESHOLD:
-            character.position = (
-                character.position[0] + (x_avg - character.position[0]) * STEP / distance,
-                character.position[1] + (y_avg - character.position[1]) * STEP / distance
-            )
+          character.position = (
+              character.position[0] + (x_avg - character.position[0]) * STEP / distance,
+              character.position[1] + (y_avg - character.position[1]) * STEP / distance
+          )
         character.update()
 
   def draw(self):
@@ -81,8 +80,8 @@ class Family:
       character.draw()
 
   def add_character(self):
-    if len(self.characters) >= 20:
-      return
+    # if len(self.characters) >= 20:
+    #   return
     # Check if the family has any characters
     if len(self.characters) == 0:
       # If the family has no characters, just add the new character at a random position

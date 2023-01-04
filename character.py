@@ -37,15 +37,15 @@ class Character:
 
   def animate(self):
     # Increment the timer
-    self.timer += 1
+    self.timer += 0.25
     # Check if it's time to switch frames
-    if len(self.idle_frames) > 0:
-      if self.timer % (self.frame_rate // len(self.idle_frames)) == 0:
+    if len(self.animation_frames) > 0:
+      if self.timer % (self.frame_rate // len(self.animation_frames)) == 0:
           # Reset the timer
           self.timer = 0
           # Increment the current frame index
           self.current_frame += 1
-          if self.current_frame >= len(self.idle_frames):
+          if self.current_frame >= len(self.animation_frames):
               self.current_frame = 0
     else:
       self.frame_rate = 10
